@@ -1,0 +1,16 @@
+.App {
+  text-align: center;
+}
+.App-link {
+  color: #61dafb;
+}
+.allpros{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5%;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+.procard{
+  margin: 2%;
+}
