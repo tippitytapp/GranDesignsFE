@@ -4,16 +4,19 @@ import mobile from "./GranDesignsAssetss/20200707_113957.jpg"
 import sophie from "./GranDesignsAssetss/20200707_113737.jpg"
 export const fakedata = [
   {
+    id: 1,
     title: "Snowman Party",
     src:
       snowman,
     alt: "3 snowmen together in the snow",
     description: "",
     custom: false,
-        tags: ["christmas", "snowmen", "snow", "painting"],
-    price: 25
+    tags: ["christmas", "snowmen", "snow", "painting"],
+    price: 25,
+    type: "painting"
   },
   {
+    id: 2,
     title: "Lighthouse Waves",
     src:
       lighthouse,
@@ -21,9 +24,11 @@ export const fakedata = [
     description: "",
     custom: false,
       tags: ["water", "ocean", "waves", "lighthouse", "painting"],
-    price: 15
+    price: 15,
+    type: "painting"
   },
   {
+    id: 3,
     title: "Merry Christmas Mobile",
     src:
       mobile,
@@ -31,9 +36,11 @@ export const fakedata = [
     description: "",
     custom: false,
       tags: ["christmas", "vehicles", "snow", "painting"],
-    price: 35
+    price: 35,
+    type: "painting"
   },
   {
+    id: 4,
     title: "Scholarly Rabbit",
     src:
       sophie,
@@ -41,6 +48,7 @@ export const fakedata = [
     description: "",
       custom: true,
       tags: ["rabbit", "animal", "portrait", "painting"],
-    price: 25
+    price: 25,
+    type: "painting"
   },
 ];
