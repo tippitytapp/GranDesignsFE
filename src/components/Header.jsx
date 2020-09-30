@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 import { searchData, fetchData } from "../data/gettingData";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 
 function Header(props) {
@@ -24,7 +24,8 @@ function Header(props) {
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
               href="/about"
-            ><NavLink>About</NavLink>
+            >
+              <NavLink>About</NavLink>
             </Button>
           </NavItem>
           <NavItem>
@@ -32,8 +33,10 @@ function Header(props) {
               color="link"
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
-              onClick={() => { setData(fetchData("painting")); history.push("/") }}
-              
+              onClick={() => {
+                setData(fetchData("painting"));
+                history.push("/");
+              }}
             >
               <NavLink>Paintings</NavLink>
             </Button>
@@ -45,9 +48,10 @@ function Header(props) {
               style={{ color: "#FFFFFF80" }}
               onClick={() => {
                 setData(fetchData("rockart"));
-                history.push("/")
+                history.push("/");
               }}
-            ><NavLink>Rock Art</NavLink>
+            >
+              <NavLink>Rock Art</NavLink>
             </Button>
           </NavItem>
           <NavItem>
@@ -55,8 +59,12 @@ function Header(props) {
               color="link"
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
-              onClick={() => { setData(fetchData("decor")); history.push("/") }}
-            ><NavLink>Decor</NavLink>
+              onClick={() => {
+                setData(fetchData("decor"));
+                history.push("/");
+              }}
+            >
+              <NavLink>Decor</NavLink>
             </Button>
           </NavItem>
         </Nav>
@@ -74,13 +82,18 @@ function Header(props) {
               onClick={() => {
                 setData(searchData(search));
                 setSearch("");
-                history.push("/")
+                history.push("/");
               }}
             >
               Search
             </Button>
           </InputGroupAddon>
         </InputGroup>
+        <div className="links">
+          <Link to="/login">
+            <i class="fas fa-sign-in-alt"></i>
+          </Link>
+        </div>
       </Navbar>
     </div>
   );

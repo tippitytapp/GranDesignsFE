@@ -30,3 +30,13 @@
 .linkbottom{
   text-align: center;
 }
+.links{
+  margin-left: 2%;
+  font-size: 2rem;
+}
+.fas{
+  color:#ffffff80
+}
+.fas:hover{
+  color:#ffffff
+}

@@ -10,6 +10,7 @@ import SecureUserRoute from "./components/user/SecureUserRoute";
 import UserDashboard from "./components/user/UserDashboard";
 import Register from "./components/user/Register";
 import Login from "./components/user/Login";
+import AdminLogin from "./components/admin/AdminLogin";
 
 import { fakedata } from "./data/fakedata";
 import { Col, Spinner } from "reactstrap";
@@ -58,6 +59,7 @@ function App() {
       <Route exact path="/login">
         <Login />
       </Route>
+      <Route exact path="/adminlogin"><AdminLogin /></Route>
       <Footer setData={setData} />
     </div>
   );

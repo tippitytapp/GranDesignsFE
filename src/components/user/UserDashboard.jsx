@@ -2,7 +2,7 @@ import React from "react";
 
 function UserDashboard() { 
     return (
-        <div>Admin Portal Coming Soon!</div>
+        <div>User Dashboard Coming Soon!</div>
     )
 }
 
