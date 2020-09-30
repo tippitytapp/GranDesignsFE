@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+import About from "./components/About";
 import ProductCard from "./components/ProuductCard";
+import Footer from "./components/Footer";
+import SecureAdminRoute from "./components/admin/SecureAdminRoute";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import SecureUserRoute from "./components/user/SecureUserRoute";
+import UserDashboard from "./components/user/UserDashboard";
+import Register from "./components/user/Register";
+import Login from "./components/user/Login";
+
 import { fakedata } from "./data/fakedata";
 import { Col, Spinner } from "reactstrap";
 import { Route } from "react-router-dom";
@@ -11,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <Header setData={setData} />
-      <Route path="/">
+      <Route exact path="/">
         <div className="allpros">
           {data ? (
             data.map((product) => {
@@ -39,7 +47,18 @@ function App() {
           )}
         </div>
       </Route>
-      <Footer />
+      <Route exact path="/about">
+        <About setData={setData} />
+      </Route>
+      <SecureAdminRoute exact path="/admin" component={AdminDashboard} />
+      <SecureUserRoute exact path="/dashboard" component={UserDashboard} />
+      <Route exact path="/register">
+        <Register />
+      </Route>
+      <Route exact path="/login">
+        <Login />
+      </Route>
+      <Footer setData={setData} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 import { searchData, fetchData } from "../data/gettingData";
+import { useHistory } from "react-router-dom";
 
 
 function Header(props) {
@@ -8,7 +9,8 @@ function Header(props) {
     const [search, setSearch] = useState("")
     const handleChange = (event) => { 
         setSearch(event.target.value)
-    }
+  }
+  const history = useHistory()
   return (
     <div className="header">
       <Navbar color="dark" dark expand="lg">
@@ -17,21 +19,44 @@ function Header(props) {
         </NavbarBrand>
         <Nav className="mr-auto" navbar>
           <NavItem>
-            <Button color="link" href="/about">About</Button>
-          </NavItem>
-          <NavItem>
-            <Button color="link" onClick={() => setData(fetchData("painting"))}>
-              Paintings
+            <Button
+              color="link"
+              className="btnhover"
+              style={{ color: "#FFFFFF80" }}
+              href="/about"
+            ><NavLink>About</NavLink>
             </Button>
           </NavItem>
           <NavItem>
-            <Button color="link" onClick={async () => { await setData(fetchData("rockart")) }}>
-              Rock Art
+            <Button
+              color="link"
+              className="btnhover"
+              style={{ color: "#FFFFFF80" }}
+              onClick={() => { setData(fetchData("painting")); history.push("/") }}
+              
+            >
+              <NavLink>Paintings</NavLink>
             </Button>
           </NavItem>
           <NavItem>
-            <Button color="link" onClick={() => setData(fetchData("decor"))}>
-              Decor
+            <Button
+              color="link"
+              className="btnhover"
+              style={{ color: "#FFFFFF80" }}
+              onClick={() => {
+                setData(fetchData("rockart"));
+                history.push("/")
+              }}
+            ><NavLink>Rock Art</NavLink>
+            </Button>
+          </NavItem>
+          <NavItem>
+            <Button
+              color="link"
+              className="btnhover"
+              style={{ color: "#FFFFFF80" }}
+              onClick={() => { setData(fetchData("decor")); history.push("/") }}
+            ><NavLink>Decor</NavLink>
             </Button>
           </NavItem>
         </Nav>
@@ -49,6 +74,7 @@ function Header(props) {
               onClick={() => {
                 setData(searchData(search));
                 setSearch("");
+                history.push("/")
               }}
             >
               Search
