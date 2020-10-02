@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Input, InputGroup, InputGroupAddon, Button } from "reactstrap";
 import { searchData, fetchData } from "../data/gettingData";
 import { useHistory, Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 
 function Header(props) {
   const { setData } = props;
+    const history = useHistory();
     const [search, setSearch] = useState("")
     const handleChange = (event) => { 
         setSearch(event.target.value)
   }
-  const history = useHistory()
+  const logout = () => { 
+    localStorage.removeItem("userToken");
+    history.push('/logout')
+  }
+
   return (
     <div className="header">
       <Navbar color="dark" dark expand="lg">
@@ -89,14 +95,35 @@ function Header(props) {
             </Button>
           </InputGroupAddon>
         </InputGroup>
-        <div className="links">
-          <Link to="/login">
-            <i class="fas fa-sign-in-alt"></i>
-          </Link>
-        </div>
+        {!localStorage.getItem("userToken") ? (
+          <div className="links">
+            <Link to="/login">
+              <i class="fas fa-sign-in-alt"></i>
+            </Link>{" "}
+          </div>
+        ) : (
+          <div className="links">
+            <Link to="/logout">
+              <i class="fas fa-sign-out-alt"></i>
+            </Link>
+            &nbsp;
+            {/* <Link to="/cart"> */}
+              <i class="fas fa-shopping-cart" onClick={logout}></i>
+            {/* </Link> */}
+          </div>
+        )}
       </Navbar>
     </div>
   );
 }
 
-export default Header;
+const mapStateToProps = state => { 
+  return {
+    userLoggedIn: state.ur.isLoggedIn,
+    userLogginErrorMessage: state.ur.isLogginErrorMessage,
+    cart: state.ur.cart,
+    liked: state.ur.liked
+  }
+}
+
+export default connect(mapStateToProps, {} )(Header);

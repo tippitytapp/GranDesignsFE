@@ -30,6 +30,16 @@ export const usersReducer = (state = initialState, action) => {
               isLogginError: true,
               isLogginErrorMessage: action.payload
             }
+        case 'ADD_TO_CART':
+            return {
+                ...state,
+                cart: [...state.cart, action.payload]
+            }
+        case 'REM_FROM_CART':
+            return {
+                ...state,
+                cart: [state.cart.filter(pro => pro.id !== action.payload)]
+            }
         default:
             return state
     }
