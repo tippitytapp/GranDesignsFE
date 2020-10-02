@@ -104,12 +104,12 @@ function Header(props) {
         ) : (
           <div className="links">
             <Link to="/logout">
-              <i class="fas fa-sign-out-alt"></i>
+              <i class="fas fa-sign-out-alt" onClick={logout}></i>
             </Link>
             &nbsp;
-            {/* <Link to="/cart"> */}
-              <i class="fas fa-shopping-cart" onClick={logout}></i>
-            {/* </Link> */}
+            <Link to="/cart">
+              <i class="fas fa-shopping-cart"></i>
+            </Link>
           </div>
         )}
       </Navbar>
