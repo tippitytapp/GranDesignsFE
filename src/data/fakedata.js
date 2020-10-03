@@ -6,49 +6,46 @@ export const fakedata = [
   {
     id: 1,
     title: "Snowman Party",
-    src:
-      snowman,
-    alt: "3 snowmen together in the snow",
+    price: 25,
+    size: "",
     description: "",
+    src: snowman,
+    alt: "3 snowmen together in the snow",
+    type_id: "painting",
     custom: false,
     tags: ["christmas", "snowmen", "snow", "painting"],
-    price: 25,
-    type: "painting"
   },
   {
     id: 2,
     title: "Lighthouse Waves",
-    src:
-      lighthouse,
+    src: lighthouse,
     alt: "waves crashing into a lighthouse",
     description: "",
     custom: false,
-      tags: ["water", "ocean", "waves", "lighthouse", "painting"],
+    tags: ["water", "ocean", "waves", "lighthouse", "painting"],
     price: 15,
-    type: "painting"
+    type: "painting",
   },
   {
     id: 3,
     title: "Merry Christmas Mobile",
-    src:
-      mobile,
+    src: mobile,
     alt: "Red car covered in snow with wreath",
     description: "",
     custom: false,
-      tags: ["christmas", "vehicles", "snow", "painting"],
+    tags: ["christmas", "vehicles", "snow", "painting"],
     price: 35,
-    type: "painting"
+    type: "painting",
   },
   {
     id: 4,
     title: "Scholarly Rabbit",
-    src:
-      sophie,
+    src: sophie,
     alt: "Rabbit with glasses, and bowtie",
     description: "",
-      custom: true,
-      tags: ["rabbit", "animal", "portrait", "painting"],
+    custom: true,
+    tags: ["rabbit", "animal", "portrait", "painting"],
     price: 25,
-    type: "painting"
+    type: "painting",
   },
 ];
