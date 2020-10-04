@@ -1,16 +1,19 @@
 import React, { useState }from "react";
-import { Table, Modal } from "reactstrap";
+import { Table, Button } from "reactstrap";
 import axios from "axios";
 import EditArtModal from "./EditArtModal"
+import AddModal from "../AddModal"
+import { axiosWithAuth} from "../../utils/axiosWithAuth"
 
 function ArtTable(props) { 
     const { art, setArt } = props
     // CODE FOR THE EDIT MODAL
   const [modal, setModal] = useState(false);
-  const toggle = () => { setModal(!modal); console.log(modal) }
-  
+  const toggle = () => setModal(!modal)
+  const [addModal, setAddModal] = useState(false);
+  const addToggle = () => setAddModal(!addModal)
     const delArt = (id) => { 
-        axios.delete(`http://localhost:5151/art/${id}`).then(resp => setArt(resp.data)).catch(console.log)
+        axiosWithAuth().delete(`/art/${id}`).then(resp => setArt(resp.data)).catch(console.log)
     }
     const renderArt = (art, index)=>{ 
         return (
@@ -39,6 +42,8 @@ function ArtTable(props) {
 
     return (
       <div className="adminTable">
+        <Button onClick={addToggle}>Add Art</Button>
+        {addModal ? <AddModal toggle={addToggle} modal={addModal} setArt={setArt} /> : <> </>}
         <Table>
           <thead>
             <tr>

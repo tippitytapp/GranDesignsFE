@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { connect} from "react-redux"
 
 const SecureAdminRoute = ({ component: Component, ...rest }) => {
     return (
@@ -14,4 +15,5 @@ const SecureAdminRoute = ({ component: Component, ...rest }) => {
     )
 }
  
+
 export default SecureAdminRoute;

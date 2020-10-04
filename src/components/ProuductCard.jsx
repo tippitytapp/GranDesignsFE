@@ -29,7 +29,7 @@ function ProductCard(props) {
               })}
                     {product.custom && <Badge pill>custom</Badge>}
                 </CardText>
-                <CardText>Price: ${product.price}.00</CardText>
+                <CardText>Price: ${product.price}</CardText>
           {product.custom ? <CardLink href="#">Customize</CardLink> : <> </>}
 
           <CardLink href="#">Add to Cart</CardLink>

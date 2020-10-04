@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useHistory, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { logUserIn} from "../../store/actions/adminActions"
 
 
-function AdminLogin() { 
+function AdminLogin(props) { 
     const history = useHistory()
     const [login, setLogin] = useState({
-        username: "",
+        name: "",
         password: ""
     })
     const handleChange = event => { 
@@ -14,9 +16,8 @@ function AdminLogin() {
         setLogin({...login, [event.target.name]: event.target.value})
     }
     const handleSubmit = event => { 
-        event.preventDefault();
-        console.log("login", login);
-        localStorage.setItem('adminToken', true)
+      event.preventDefault();
+        props.logUserIn(login)
         history.push('/admin')
         
     }
@@ -26,12 +27,12 @@ function AdminLogin() {
         <br />
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label for="username">Username</Label>
+            <Label for="name">Name</Label>
             <Input
-              id="username"
-              name="username"
+              id="name"
+              name="name"
               type="text"
-              value={login.username}
+              value={login.name}
               onChange={handleChange}
             />
           </FormGroup>
@@ -51,4 +52,12 @@ function AdminLogin() {
     );
 }
 
-export default AdminLogin;
+const mapStateToProps = state => { 
+  return {
+    isLoggedIn: state.ar.isLoggedIn,
+    isLogginErrorMessage: state.ar.isLogginErrorMessage,
+    token: state.ar.token
+  };
+}
+
+export default connect(mapStateToProps, {logUserIn})(AdminLogin);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import About from "./components/About";
@@ -11,12 +11,16 @@ import UserDashboard from "./components/user/UserDashboard";
 import Register from "./components/user/Register";
 import Login from "./components/user/Login";
 import AdminLogin from "./components/admin/AdminLogin";
+import { axiosWithAuth} from "./utils/axiosWithAuth"
 
-import { fakedata } from "./data/fakedata";
+// import { fakedata } from "./data/fakedata";
 import { Col, Spinner } from "reactstrap";
 import { Route } from "react-router-dom";
 function App() {
-  const [data, setData] = useState(fakedata);
+  const [data, setData] = useState([]);
+  useEffect(() => { 
+    axiosWithAuth().get('/art').then(res=> setData(res.data))
+  },[data.length])
   return (
     <div className="App">
       <Header setData={setData} />

@@ -3,6 +3,7 @@ const initialState = {
     isLoggedIn: false,
     isLogginError: false,
     isLogginErrorMessage: "",
+    token: "",
     cart: [],
     liked: []
 }

@@ -3,6 +3,7 @@ const initialState = {
   isLoggedIn: false,
   isLogginError: false,
   isLogginErrorMessage: "",
+  token: ""
 };
 
 export const adminReducer = (state = initialState, action) => {
@@ -19,6 +20,7 @@ export const adminReducer = (state = initialState, action) => {
         isLoggedIn: true,
         isLogginError: false,
         isLogginErrorMessage: "",
+        token: action.payload
       };
     case "LOGIN_FAIL_A":
       return {
