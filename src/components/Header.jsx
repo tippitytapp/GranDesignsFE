@@ -3,10 +3,9 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Input, InputGroup, InputGro
 import { searchData, fetchData } from "../data/gettingData";
 import { useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import { filterArt } from "../store/actions/artActions"
 
 function Header(props) {
-  const { setData } = props;
     const history = useHistory();
     const [search, setSearch] = useState("")
     const handleChange = (event) => { 
@@ -40,7 +39,7 @@ function Header(props) {
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
               onClick={() => {
-                setData(fetchData("painting"));
+                props.filterArt(fetchData("painting"));
                 history.push("/");
               }}
             >
@@ -53,7 +52,7 @@ function Header(props) {
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
               onClick={() => {
-                setData(fetchData("rockart"));
+                props.filterArt(fetchData("rockart"));
                 history.push("/");
               }}
             >
@@ -66,7 +65,7 @@ function Header(props) {
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
               onClick={() => {
-                setData(fetchData("decor"));
+                props.filterArt(fetchData("decor"));
                 history.push("/");
               }}
             >
@@ -86,7 +85,7 @@ function Header(props) {
             <Button
               color="secondary"
               onClick={() => {
-                setData(searchData(search));
+                props.filterArt(searchData(search));
                 setSearch("");
                 history.push("/");
               }}
@@ -122,8 +121,9 @@ const mapStateToProps = state => {
     userLoggedIn: state.ur.isLoggedIn,
     userLogginErrorMessage: state.ur.isLogginErrorMessage,
     cart: state.ur.cart,
-    liked: state.ur.liked
+    liked: state.ur.liked,
+    art: state.art.art
   }
 }
 
-export default connect(mapStateToProps, {} )(Header);
+export default connect(mapStateToProps, {filterArt} )(Header);
