@@ -12,22 +12,20 @@ import Register from "./components/user/Register";
 import Login from "./components/user/Login";
 import AdminLogin from "./components/admin/AdminLogin";
 import { axiosWithAuth} from "./utils/axiosWithAuth"
-
+import { connect } from "react-redux"
+import { getArt } from "./store/actions/artActions"
 // import { fakedata } from "./data/fakedata";
 import { Col, Spinner } from "reactstrap";
 import { Route } from "react-router-dom";
-function App() {
-  const [data, setData] = useState([]);
-  useEffect(() => { 
-    axiosWithAuth().get('/art').then(res=> setData(res.data))
-  },[data.length])
+function App(props) {
+  useEffect(() => props.getArt() ,[props.art.length])
   return (
     <div className="App">
-      <Header setData={setData} />
+      <Header />
       <Route exact path="/">
         <div className="allpros">
-          {data ? (
-            data.map((product) => {
+          {props.art ? (
+            props.art.map((product) => {
               return (
                 <Col key={Math.random()} sm="2" md="3" lg="4">
                   <ProductCard product={product} />
@@ -53,7 +51,7 @@ function App() {
         </div>
       </Route>
       <Route exact path="/about">
-        <About setData={setData} />
+        <About />
       </Route>
       <SecureAdminRoute exact path="/admin" component={AdminDashboard} />
       <SecureUserRoute exact path="/dashboard" component={UserDashboard} />
@@ -64,9 +62,16 @@ function App() {
         <Login />
       </Route>
       <Route exact path="/adminlogin"><AdminLogin /></Route>
-      <Footer setData={setData} />
+      <Footer />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    art: state.art.art,
+    isLoading: state.art.isLoading,
+    isError: state.art.isError
+  }
+}
+export default connect(mapStateToProps, {getArt}) (App);
