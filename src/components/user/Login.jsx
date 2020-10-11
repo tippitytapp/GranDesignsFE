@@ -17,7 +17,8 @@ function Login() {
         event.preventDefault();
         console.log("login", login);
         localStorage.setItem('userToken', true)
-        history.push('/dashboard')
+      history.push('/dashboard')
+      history.go(0)
         
     }
     return (

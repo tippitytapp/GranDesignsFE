@@ -8,27 +8,49 @@ import {
   Form,
   FormGroup,
   Label,
-    Input,
-  Row
+  Input,
+  Row,
 } from "reactstrap";
-import { axiosWithAuth } from "../utils/axiosWithAuth"
+import { axiosWithAuth, imageUploadAxios } from "../utils/axiosWithAuth";
+import * as FormData from "form-data";
+import axios from "axios";
 function AddModal(props) {
-    const { setArt, modal, toggle } = props;
-    const [art, setNewArt] = useState({})
-    const handleChange = event => { 
-        setNewArt({...art, [event.target.name]: event.target.value})
-    }
-    const handleSubmit = event => { 
-        event.preventDefault();
-        console.log(art)
-        axiosWithAuth().post('/art', art).then(resp => { console.log(resp)}).catch(console.log)
-    }
+  const { setArt, modal, toggle } = props;
+  const clientid = "cf30ab951c235bf";
+  const [art, setNewArt] = useState({});
+  const handleChange = (event) => {
+    setNewArt({ ...art, [event.target.name]: event.target.value });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(art);
+    axiosWithAuth()
+      .post("/art", art)
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch(console.log);
+  };
+  const handleUpload = (event) => {
+    event.preventDefault();
+    console.log("upload event", event.target.files[0]);
+    let formdata = new FormData();
+    formdata.append("name", event.target.files[0].name);
+    formdata.append("file", event.target.files[0]);
+    const config = {
+      headers: { "content-type": "multipart/form-data" },
+    };
+    axios
+      .post("http://localhost:5151/art/img", formdata, config)
+      .then((res) => console.log(res))
+      .catch(console.log);
+  };
   return (
     <div>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}> Edit {art.title}</ModalHeader>
         <ModalBody>
-                  <Form onSubmit={handleSubmit} style={{padding: "2%"}}>
+          <Form onSubmit={handleSubmit} style={{ padding: "2%" }}>
             <FormGroup>
               <Label for="type">Select Type</Label>
               <Input
@@ -92,7 +114,7 @@ function AddModal(props) {
                 name="src"
                 id="src"
                 value={art.src}
-                onChange={handleChange}
+                onChange={handleUpload}
               />
             </FormGroup>
             <FormGroup>

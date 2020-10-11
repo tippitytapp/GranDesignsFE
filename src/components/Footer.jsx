@@ -1,10 +1,11 @@
 import React from "react";
 import { Nav, NavItem, NavLink, Navbar, NavbarText, Button } from "reactstrap";
-import { searchData, fetchData } from "../data/gettingData";
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { filterArt } from "../store/actions/artActions";
 
 function Footer(props) { 
-  const { setData } = props;
+
   const history = useHistory();
     return (
       <div className="footer">
@@ -26,7 +27,7 @@ function Footer(props) {
                 color="link"
                 className="btnhover"
                 style={{ color: "#FFFFFF80" }}
-                onClick={() => { setData(fetchData("painting")); history.push("/")}}
+                onClick={() => { props.filterArt("painting"); history.push("/")}}
               >
                 <NavLink>Paintings</NavLink>
               </Button>
@@ -37,7 +38,7 @@ function Footer(props) {
                 className="btnhover"
                 style={{ color: "#FFFFFF80" }}
                 onClick={() => {
-                  setData(fetchData("rockart"));
+                  props.filterArt("rockart");
                   history.push("/")
                 }}
               >
@@ -50,7 +51,7 @@ function Footer(props) {
                 className="btnhover"
                 style={{ color: "#FFFFFF80" }}
                 onClick={() => {
-                  setData(fetchData("decor"));
+                  props.filterArt("decor");
                   history.push("/")
                 }}
               >
@@ -73,4 +74,14 @@ function Footer(props) {
     );
 }
 
-export default Footer;
+const mapStateToProps = (state) => {
+  return {
+    userLoggedIn: state.ur.isLoggedIn,
+    userLogginErrorMessage: state.ur.isLogginErrorMessage,
+    cart: state.ur.cart,
+    liked: state.ur.liked,
+    art: state.art.art,
+  };
+};
+
+export default connect(mapStateToProps, { filterArt })(Footer);
