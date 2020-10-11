@@ -11,6 +11,7 @@ import UserDashboard from "./components/user/UserDashboard";
 import Register from "./components/user/Register";
 import Login from "./components/user/Login";
 import AdminLogin from "./components/admin/AdminLogin";
+import Logout from "./components/user/Logout";
 import { axiosWithAuth} from "./utils/axiosWithAuth"
 import { connect } from "react-redux"
 import { getArt } from "./store/actions/artActions"
@@ -18,7 +19,7 @@ import { getArt } from "./store/actions/artActions"
 import { Col, Spinner } from "reactstrap";
 import { Route } from "react-router-dom";
 function App(props) {
-  useEffect(() => props.getArt() ,[props.art.length])
+  useEffect(() => props.getArt() ,[])
   return (
     <div className="App">
       <Header />
@@ -60,6 +61,9 @@ function App(props) {
       </Route>
       <Route exact path="/login">
         <Login />
+      </Route>
+      <Route exact path="/logout">
+        <Logout />
       </Route>
       <Route exact path="/adminlogin"><AdminLogin /></Route>
       <Footer />

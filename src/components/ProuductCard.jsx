@@ -2,7 +2,8 @@ import React from "react";
 import { Card, CardImg, CardText, CardBody, CardLink, CardTitle, Badge} from "reactstrap";
 
 function ProductCard(props) { 
-    const { product } = props
+  const { product } = props;
+  console.log("PRODUCT", product)
     return (
       <Card className="procard">
         <CardBody>

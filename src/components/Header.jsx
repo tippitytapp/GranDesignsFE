@@ -14,6 +14,7 @@ function Header(props) {
   const logout = () => { 
     localStorage.removeItem("userToken");
     history.push('/logout')
+    history.go(0)
   }
 
   return (
@@ -39,7 +40,7 @@ function Header(props) {
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
               onClick={() => {
-                props.filterArt(fetchData("painting"));
+                props.filterArt("painting");
                 history.push("/");
               }}
             >
@@ -52,7 +53,7 @@ function Header(props) {
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
               onClick={() => {
-                props.filterArt(fetchData("rockart"));
+                props.filterArt("rockart");
                 history.push("/");
               }}
             >
@@ -65,8 +66,8 @@ function Header(props) {
               className="btnhover"
               style={{ color: "#FFFFFF80" }}
               onClick={() => {
-                props.filterArt(fetchData("decor"));
-                history.push("/");
+                props.filterArt("decor");
+                // history.push("/");
               }}
             >
               <NavLink>Decor</NavLink>
