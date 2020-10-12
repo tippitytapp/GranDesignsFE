@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import { axiosWithAuth, imageUploadAxios } from "../utils/axiosWithAuth";
 import * as FormData from "form-data";
+import * as fs from "fs";
 import axios from "axios";
 function AddModal(props) {
   const { setArt, modal, toggle } = props;
@@ -35,14 +36,13 @@ function AddModal(props) {
     event.preventDefault();
     console.log("upload event", event.target.files[0]);
     let formdata = new FormData();
+    let stream = event.target.files[0]
     formdata.append("name", event.target.files[0].name);
-    formdata.append("file", event.target.files[0]);
-    const config = {
-      headers: { "content-type": "multipart/form-data" },
-    };
-    axios
-      .post("http://localhost:5151/art/img", formdata, config)
-      .then((res) => console.log(res))
+    formdata.append("file", stream);
+
+    axiosWithAuth()
+      .post("/art/img", formdata)
+      .then((res) => { console.log(res.data); console.log(res.statusText)})
       .catch(console.log);
   };
   return (
