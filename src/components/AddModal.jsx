@@ -11,39 +11,46 @@ import {
   Input,
   Row,
 } from "reactstrap";
-import { axiosWithAuth, imageUploadAxios } from "../utils/axiosWithAuth";
-import * as FormData from "form-data";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
+// import * as FormData from "form-data";
 import axios from "axios";
 function AddModal(props) {
+  const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/marcalanstestcloud/upload";
+  const CLOUDINARY_UPLOAD_PRESET = "ij2v1vwd";
   const { setArt, modal, toggle } = props;
   const clientid = "cf30ab951c235bf";
-  const [art, setNewArt] = useState({});
+  const [art, setNewArt] = useState({ type_id: 0, title: "", price: 0.00, size: "", description: "", src: "", alt: "", custom: false });
   const handleChange = (event) => {
     setNewArt({ ...art, [event.target.name]: event.target.value });
+    console.log("ART", art)
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(art);
+
+    const newArt = {...art, type_id: parseInt(art.type_id), price: parseFloat(art.price)}
+        console.log(newArt);
     axiosWithAuth()
-      .post("/art", art)
+      .post("/art", newArt)
       .then((resp) => {
         console.log(resp);
       })
       .catch(console.log);
   };
-  const handleUpload = (event) => {
+  const handleUpload = async (event) => {
     event.preventDefault();
-    console.log("upload event", event.target.files[0]);
-    let formdata = new FormData();
-    formdata.append("name", event.target.files[0].name);
-    formdata.append("file", event.target.files[0]);
-    const config = {
-      headers: { "content-type": "multipart/form-data" },
-    };
-    axios
-      .post("http://localhost:5151/art/img", formdata, config)
-      .then((res) => console.log(res))
-      .catch(console.log);
+    let file = event.target.files[0]
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET)
+    await axios({
+      url: CLOUDINARY_URL,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www.form-urlencoded'
+      },
+      data: formData
+    }).then(res => { setNewArt({ ...art, src: res.data.secure_url }); })
+      .catch(err => console.log(err))
   };
   return (
     <div>
@@ -60,9 +67,9 @@ function AddModal(props) {
                 value={art.type_id}
                 onChange={handleChange}
               >
-                <option value={1}>Painting</option>
-                <option value={2}>Rock Art</option>
-                <option value={3}>Home Decor</option>
+                <option value={0}>Painting</option>
+                <option value={1}>Rock Art</option>
+                <option value={2}>Home Decor</option>
               </Input>
             </FormGroup>
             <FormGroup>
@@ -107,13 +114,14 @@ function AddModal(props) {
                 onChange={handleChange}
               />
             </FormGroup>
+            {art.src ? <img style={{height: "200px", width: "200px"}}src={art.src} /> : <></>}
             <FormGroup>
               <Label for="src">Image Source</Label>
               <Input
                 type="file"
                 name="src"
                 id="src"
-                value={art.src}
+                // value={art.src}
                 onChange={handleUpload}
               />
             </FormGroup>

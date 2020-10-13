@@ -7,7 +7,7 @@ function AdminDashboard() {
     const [art, setArt] = useState([])
     useEffect(() => { 
         axiosWithAuth().get('/art')
-            .then(res => setArt(res.data))
+          .then(res => { console.log(res.data[0]); setArt(res.data) })
             .catch(console.log)
     },[])
     return (

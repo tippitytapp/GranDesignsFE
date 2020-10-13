@@ -9,6 +9,7 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "form-data": "^3.0.0",
+    "fs": "0.0.1-security",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
