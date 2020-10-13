@@ -121,6 +121,7 @@ const mapStateToProps = state => {
   return {
     userLoggedIn: state.ur.isLoggedIn,
     userLogginErrorMessage: state.ur.isLogginErrorMessage,
+    artErrorMessage: state.art.isErrorMessage,
     cart: state.ur.cart,
     liked: state.ur.liked,
     art: state.art.art

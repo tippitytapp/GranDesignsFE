@@ -40,9 +40,10 @@ function EditArtModal(props) {
                 value={art.description}
               />
             </FormGroup>
+            <img style={{ height: "150px", width: "150px" }} src={art.src} alt={art.alt} />
             <FormGroup>
               <Label for="src">Image Source</Label>
-              <Input type="text" name="src" id="src" value={art.src} />
+              <Input type="file" name="src" id="src"/>
             </FormGroup>
             <FormGroup>
               <Label for="art">Image Short Description</Label>
