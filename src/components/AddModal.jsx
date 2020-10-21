@@ -20,15 +20,20 @@ function AddModal(props) {
   const { setArt, modal, toggle } = props;
   const clientid = "cf30ab951c235bf";
   const [art, setNewArt] = useState({ type_id: 0, title: "", price: 0.00, size: "", description: "", src: "", alt: "", custom: false });
+  const [tags, setTags] = useState("")
+  const handleTags = (event) => { 
+    setTags(event.target.value)
+  }
+  console.log("TAGS", tags.trim().split(','))
   const handleChange = (event) => {
     setNewArt({ ...art, [event.target.name]: event.target.value });
     console.log("ART", art)
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    const addTags = tags.split(',')
+    const newArt = { ...art, type_id: parseInt(art.type_id), price: parseFloat(art.price) }
 
-    const newArt = {...art, type_id: parseInt(art.type_id), price: parseFloat(art.price)}
-        console.log(newArt);
     axiosWithAuth()
       .post("/art", newArt)
       .then((resp) => {
@@ -134,6 +139,15 @@ function AddModal(props) {
                 value={art.alt}
                 onChange={handleChange}
               />
+            </FormGroup>
+            <FormGroup>
+              <Label for="tags">Tags</Label>
+              <Input type="text"
+                name="tags"
+                id="tags"
+                value={tags}
+                onChange={handleTags}
+                />
             </FormGroup>
             <FormGroup>
               <Input
