@@ -24,15 +24,12 @@ function AddModal(props) {
   const handleTags = (event) => { 
     setTags(event.target.value)
   }
-  console.log("TAGS", tags.trim().split(','))
   const handleChange = (event) => {
     setNewArt({ ...art, [event.target.name]: event.target.value });
-    console.log("ART", art)
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const addTags = tags.split(',')
-    const newArt = { ...art, type_id: parseInt(art.type_id), price: parseFloat(art.price) }
+    const newArt = { ...art, type_id: parseInt(art.type_id), price: parseFloat(art.price), tags: tags }
 
     axiosWithAuth()
       .post("/art", newArt)

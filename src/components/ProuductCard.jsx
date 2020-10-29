@@ -4,6 +4,10 @@ import { Card, CardImg, CardText, CardBody, CardLink, CardTitle, Badge} from "re
 function ProductCard(props) { 
   const { product } = props;
   console.log("PRODUCT", product)
+  let tags = []
+  if (product.tags) tags = product.tags.split(",")
+  else tags = []
+  console.log(tags)
     return (
       <Card className="procard">
         <CardBody>
@@ -20,8 +24,8 @@ function ProductCard(props) {
         <CardBody>
                 <CardText>
                     Tags: &nbsp;
-            {product.tags &&
-              product.tags.map((tag) => {
+            {tags &&
+              tags.map((tag) => {
                 return (
                   <Badge key={Math.random()} pill>
                     {tag}
