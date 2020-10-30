@@ -12,12 +12,14 @@ import {
   Row,
 } from "reactstrap";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory} from "react-router-dom"
 // import * as FormData from "form-data";
 import axios from "axios";
 function AddModal(props) {
   const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/marcalanstestcloud/upload";
   const CLOUDINARY_UPLOAD_PRESET = "ij2v1vwd";
-  const { setArt, modal, toggle } = props;
+  const { go } = useHistory()
+  const { modal, toggle } = props;
   const clientid = "cf30ab951c235bf";
   const [art, setNewArt] = useState({ type_id: 0, title: "", price: 0.00, size: "", description: "", src: "", alt: "", custom: false });
   const [tags, setTags] = useState("")
@@ -30,11 +32,11 @@ function AddModal(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const newArt = { ...art, type_id: parseInt(art.type_id), price: parseFloat(art.price), tags: tags }
-
     axiosWithAuth()
       .post("/art", newArt)
       .then((resp) => {
         console.log(resp);
+        go(0)
       })
       .catch(console.log);
   };
@@ -57,7 +59,7 @@ function AddModal(props) {
   return (
     <div>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}> Edit {art.title}</ModalHeader>
+        <ModalHeader toggle={toggle}> Add New - {art.title}</ModalHeader>
         <ModalBody>
           <Form onSubmit={handleSubmit} style={{ padding: "2%" }}>
             <FormGroup>
